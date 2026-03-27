@@ -1,0 +1,104 @@
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Star } from 'lucide-react';
+
+const reviews = [
+  {
+    name: 'Michael Rodriguez',
+    location: 'Riverside, CA',
+    rating: 5,
+    text: "Tip's Auto did an amazing job fixing my truck after a collision. The paint match is perfect and you can't even tell it was damaged. Professional work at a fair price!",
+  },
+  {
+    name: 'Sarah Thompson',
+    location: 'Corona, CA',
+    rating: 5,
+    text: 'Had major body work done on my SUV and couldn\'t be happier with the results. The team at Tip\'s Auto is honest, skilled, and delivered exactly what they promised. Highly recommend!',
+  },
+  {
+    name: 'Carlos Martinez',
+    location: 'Moreno Valley, CA',
+    rating: 5,
+    text: "Tip's Auto completely restored my classic truck. The bodywork and paint job are flawless. They took their time and did it right. Best auto body shop in Riverside!",
+  },
+  {
+    name: 'Jennifer Lee',
+    location: 'Riverside, CA',
+    rating: 5,
+    text: 'Got my car painted at Tip\'s Auto and the results are stunning. The color is perfect and the finish is smooth as glass. These guys are true professionals!',
+  },
+  {
+    name: 'Robert Davis',
+    location: 'Perris, CA',
+    rating: 5,
+    text: "Had frame damage repaired at Tip's Auto and they made it right. Excellent workmanship and fair pricing. They really care about quality and customer satisfaction.",
+  },
+  {
+    name: 'Amanda Wilson',
+    location: 'Riverside, CA',
+    rating: 5,
+    text: 'Tip\'s Auto removed several dents from my car and the results are amazing. You can\'t even see where the damage was. Fast, affordable, and quality work!',
+  },
+];
+
+const Reviews = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  return (
+    <section id="reviews" className="py-20 bg-gradient-to-br from-blue-900 via-gray-900 to-black" ref={ref}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="font-['Oswald'] text-4xl md:text-5xl font-bold text-white mb-4">
+            CLIENT TESTIMONIALS
+          </h2>
+          <div className="w-24 h-1 bg-blue-500 mx-auto mb-6" />
+          <p className="font-['Geist'] text-lg text-gray-200 max-w-2xl mx-auto">
+            Don't just take our word for it. Here's what our valued clients have to say
+            about their experience at Marks PPF Studio.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {reviews.map((review, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 p-6 hover:border-blue-500 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20"
+            >
+              <div className="flex gap-1 mb-4">
+                {[...Array(review.rating)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-5 h-5 fill-blue-500 text-blue-500"
+                  />
+                ))}
+              </div>
+              <p className="font-['Geist'] text-white mb-6 leading-relaxed italic">
+                "{review.text}"
+              </p>
+              <div className="border-t border-gray-700 pt-4">
+                <p className="font-['Oswald'] text-lg font-semibold text-white">
+                  {review.name}
+                </p>
+                <p className="font-['Geist'] text-sm text-gray-300">
+                  {review.location}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Reviews;
